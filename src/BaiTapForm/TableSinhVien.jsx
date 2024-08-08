@@ -6,23 +6,23 @@ const TableSinhVien = ({arrSinhVien, handleDeleteSinhVien, handleGetSinhVien}) =
         {
           title: 'Mssv',
           dataIndex: 'mssv',
-          key: 'name',
+          key: 'mssv',
           // render: (text,index,record) => <a>{text}</a>,
         },
         {
           title: 'Tên sinh viên',
           dataIndex: 'tenSv',
-          key: 'age',
+          key: 'tenSv',
         },
         {
             title: 'Email',
-            key: 'action',
-            dataIndex: 'ngaySinh',
+            key: 'emai',
+            dataIndex: 'email',
           },
         {
           title: 'Số điện thoại',
-          dataIndex: 'email',
-          key: 'address',
+          dataIndex: 'soDienThoai',
+          key: 'soDienThoai',
         },
         {
           title: 'Hành động',
