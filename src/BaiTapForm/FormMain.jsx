@@ -7,9 +7,9 @@ import * as yup from "yup"
 import TableSinhVien from './TableSinhVien';
 
 const FormMain = () => {
-  const [arrNhanVien, setArrNhanVien] = useState([]);
+  const [arrSinhVien, setArrSinhVien] = useState([]);
             //      tạo state mới dùng để sư dụng chức năng sửa
-    const [nhanVien, setNhanVien] = useState();
+    const [sinhVien, setSinhVien] = useState();
     // const [value, setValue] =useState("");  
     const {handleChange, values, handleSubmit, setFieldValue, resetForm,
             errors, touched, handleBlur, setValues
@@ -20,8 +20,8 @@ const FormMain = () => {
         //  initiaValue sẽ chứa 1 object trong object sẽ có các thuộc tính trùng với
         //      thuộc tính name của Form
         initialValues: {
-            msnv: "VD: 12AB",
-            tenNv: "",
+            mssv: "VD: 12AB",
+            tenSv: "",
             email: "",
             soDienThoai: "",
             gioiTinh: "",
@@ -33,47 +33,45 @@ const FormMain = () => {
             console.log(values);
             //          Sử dụng state để lưu trữ dữ liệu vào mản
             //  cách 1:
-            //  tạo ra vùng nhớ mới và clone ra một mảng newArrNhanVien
-            //      let newArrNhanVien = [...arrNhanVien]
-            //      newArrNhanVien.push(values);
-            // gọi tới setArrNhanVien để thay đổi giá trị mới
-            //      setArrNhanVien(newArrNhanVien);
+            //  tạo ra vùng nhớ mới và clone ra một mảng newArrSinhVien
+            //      let newArrSinhVien = [...arrSinhVien]
+            //      newArrSinhVien.push(values);
+            // gọi tới setArrSinhVien để thay đổi giá trị mới
+            //      setArrSinhVien(newArrSinhVien);
 
             //      Tạo vào set dữ liệu localStorage
             //      Tọa ra một mảng mới để lưu trữ dữ liệu từ mảng cũ, để hiển thị các dữ liệu mới nhất lên gioa diện
-            //  vì sử dụng mang cũ khi cập nhật dữ liệu lần đầu thì mảng sẽ có dữ liệu là rỗng, arrNhanVien chạy trước và chưa được đông bộ
-            const newArrNhanVien = [...arrNhanVien, values];
-            setArrNhanVien(newArrNhanVien);
+            //  vì sử dụng mang cũ khi cập nhật dữ liệu lần đầu thì mảng sẽ có dữ liệu là rỗng
+            const newArrSinhVien = [...arrSinhVien, values];
+            setArrSinhVien(newArrSinhVien);
 
             //      Cách 2
             //          Nếu không sử dụng localStorage
-            // setArrNhanVien([...arrNhanVien, values]);
+            // setArrSinhVien([...arrSinhVien, values]);
 
                 //      localSrotage
-            setValueLocalStorage("arrNhanVien", newArrNhanVien);
+            setValueLocalStorage("arrSinhVien", newArrSinhVien);
 
-            // console.log(setArrNhanVien);
             resetForm();
         },
         //      Yup với formik
         validationSchema: yup.object({
             email: yup.string().email("Vui lòng nhập đúng định dạng email").required("Vui lòng nhập dữ liệu"),
-            msnv: yup.string().min(3, "Tối thiểu 3 ký tự").max(8, "Nhiều nhất 8 ký tự").required("Vui lòng không bỏ trống"),
-            tenNv: yup.string().min(1, "Tối thiểu 1 ký tự").max(20, "Tối thiểu 20 ký tự").required("Vui lòng không bỏ trống"),
+            mssv: yup.string().min(3, "Tối thiểu 3 ký tự").max(8, "Nhiều nhất 8 ký tự").required("Vui lòng không bỏ trống"),
+            tenSv: yup.string().min(1, "Tối thiểu 1 ký tự").max(20, "Tối thiểu 20 ký tự").required("Vui lòng không bỏ trống"),
             matKhau: yup.string().matches(/^(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).*$/, "Mật khẩu gồm 1 chữ cái hoa, 1 chữ cái thường, 1 ký tự đặc biệt, nằm trong khoảng 6-12 ký tự")
             .min(6, "Tối thiểu 6 ký tự").max(12, "Tối thiểu 12 ký tự")
             .required("Vui lòng không bỏ trống"),
         }),
 
-    });     
-    // console.log(arrNhanVien);  
+    });      
 
     // localStorage
     //      useEffect
     useEffect(() => {
-        const data = getValueLocalStorage("arrNhanVien");
-            //          nếu data có dữ liệu thì gọi đến setArrNhanVien để truyền data
-        data && setArrNhanVien(data);
+        const data = getValueLocalStorage("arrSinhVien");
+            //          nếu data có dữ liệu thì gọi đến setArrSinhVien để truyền data
+        data && setArrSinhVien(data);
     }, []);
 
             //      useEffect sửa
@@ -82,27 +80,27 @@ const FormMain = () => {
         //      xét điều kiện nhanVien không có dử liệu ban đầu khi table rỗng
         //      nếu table rỗng thì useEffect sẽ không chạy. 
         //      nhanVien có dữ liệu thì mới chạy và lý setValues
-        nhanVien && setValues(nhanVien);
-    }, [nhanVien]);
+        sinhVien && setValues(sinhVien);
+    }, [sinhVien]);
 
-    //      Tạo function xóa NV
-    const handleDeleteNhanVien = (msnv) => {
-        const newArrNhanVien = [...arrNhanVien];
+    //      Tạo function xóa SV
+    const handleDeleteSinhVien = (mssv) => {
+        const newArrSinhVien = [...arrSinhVien];
             //      Tạo một biến index và sử dụng findIndex để tìm kiếm trong mảng
-            //  ở phần tử item là msnv trùng với msnv của thám số thì xóa khỏi mảng
-        let index = arrNhanVien.findIndex((item) => item.msnv == msnv)
+            //  ở phần tử item là msnv trùng với mssv của thám số thì xóa khỏi mảng
+        let index = arrSinhVien.findIndex((item) => item.mssv == mssv)
         if (index != -1) {
-            newArrNhanVien.splice(index,1);
-            setArrNhanVien(newArrNhanVien);
+            newArrSinhVien.splice(index,1);
+            setArrSinhVien(newArrSinhVien);
             //      Gọi tới setValueLocalSrorage để thay đổi
-            //                  key arrNhanVien và thêm arrNhanVien
-            setValueLocalStorage("arrNhanVien", arrNhanVien);
+            //                
+            setValueLocalStorage("arrSinhVien", arrSinhVien);
         }
     }
     
             //      chức năng sửa 
-    const handleGetNhanVien = (nhanVien) => {
-        setNhanVien(nhanVien);
+    const handleGetSinhVien = (sinhVien) => {
+        setSinhVien(sinhVien);
     }
   return (
     <div className='container mx-auto px-3'>
@@ -115,20 +113,20 @@ const FormMain = () => {
         }}
         value={value} /> */}
 
-        {/*         Quản lý nhân viên: tên, msnv , email, sdt, ngày sinh , giới tính, mật khẩu  */}
+        {/*         Quản lý sinh viên: tên, msnv , email, sdt */}
         <h2 style={{fontSize: "20px"}} className='text-center my-3'>Bài tập quản lý dữ liệu Form qua thư viện Formik và Yup</h2>
         <div className="">
             {/*         handSunmit là một chức năng của formik */}
             <form action="" onSubmit={handleSubmit}>
                 <div className="grid grid-cols-2 gap-3">
                     
-                    <InputCustom contentLable={"MSNV"} placeHolder={"Nhập mã số nhân viên"} 
-                    name={"msnv"} value={values.msnv} onChange={handleChange}
-                    error={errors.msnv} touched={touched.msnv} onBlur={handleBlur}/>
+                    <InputCustom contentLable={"MSSV"} placeHolder={"Nhập mã số nhân viên"} 
+                    name={"mssv"} value={values.mssv} onChange={handleChange}
+                    error={errors.mssv} touched={touched.mssv} onBlur={handleBlur}/>
 
-                    <InputCustom contentLable={"Tên NV"} placeHolder={"Nhập tên nhân viên"} 
-                    name={"tenNv"} value={values.tenNv} onChange={handleChange} onBlur={handleBlur}
-                    error={errors.tenNv} touched={touched.tenNv}/>
+                    <InputCustom contentLable={"Tên SV"} placeHolder={"Nhập tên nhân viên"} 
+                    name={"tenSv"} value={values.tenSv} onChange={handleChange} onBlur={handleBlur}
+                    error={errors.tenSv} touched={touched.tenSv}/>
 
                     <InputCustom contentLable={"Email"} placeHolder={"Nhập Email nhân viên"} 
                     name={"email"} value={values.email} onChange={handleChange} onBlur={handleBlur}
@@ -182,7 +180,8 @@ const FormMain = () => {
                     </div> */}
 
                     <div className="space-x-5">
-                        <button type="submit" className='py-2 px-5 bg-black text-white rounded-lg'>Thêm Nhân Viên </button>
+                        <button type="submit" className='py-2 px-5 bg-black text-white rounded-lg'>Thêm Sinh Viên </button>
+
                         <button type="button" onClick={() => {resetForm()}} className='py-2 px-5 bg-red-500 text-white rounded-lg'>Reset</button>
                         <button type="button" onClick={() => {
                             //  thuộc tính isvalid của formik
@@ -197,7 +196,7 @@ const FormMain = () => {
                 </div>
             </form>
         </div>
-        <TableSinhVien arrNhanVien={arrNhanVien} handleDeleteNhanVien={handleDeleteNhanVien} handleGetNhanVien={handleGetNhanVien}/>
+        <TableSinhVien arrSinhVien={arrSinhVien} handleDeleteSinhVien={handleDeleteSinhVien} handleGetSinhVien={handleGetSinhVien}/>
     </div>
   )
 }

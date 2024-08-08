@@ -1,17 +1,17 @@
 import React from 'react'
 import { Space, Table, Tag } from 'antd';
 
-const TableSinhVien = ({arrNhanVien, handleDeleteNhanVien, handleGetNhanVien}) => {
+const TableSinhVien = ({arrSinhVien, handleDeleteSinhVien, handleGetSinhVien}) => {
     const columns = [
         {
-          title: 'Msnv',
-          dataIndex: 'msnv',
+          title: 'Mssv',
+          dataIndex: 'mssv',
           key: 'name',
           // render: (text,index,record) => <a>{text}</a>,
         },
         {
-          title: 'Tên nhân viên',
-          dataIndex: 'tenNv',
+          title: 'Tên sinh viên',
+          dataIndex: 'tenSv',
           key: 'age',
         },
         {
@@ -40,16 +40,16 @@ const TableSinhVien = ({arrNhanVien, handleDeleteNhanVien, handleGetNhanVien}) =
             //    record : là obfect từng hàng
               return <>
               <button onClick={() => {
-                handleDeleteNhanVien(record.msnv);
+                handleDeleteSinhVien(record.mssv);
               }} className='py-2 px-5 bg-red-500 text-white rounded-md'>Xóa</button>
               <button onClick={() => {
-                handleGetNhanVien(record);
+                handleGetSinhVien(record);
               }} className='py-2 px-5 bg-yellow-500 text-white rounded-md ml-3'>Sửa</button>
               </>
           }
         }
       ];
-  return <Table columns={columns} dataSource={arrNhanVien}/>
+  return <Table columns={columns} dataSource={arrSinhVien}/>
 }
 
 export default TableSinhVien
