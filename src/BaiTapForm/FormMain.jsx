@@ -10,7 +10,7 @@ const FormMain = () => {
   const [arrSinhVien, setArrSinhVien] = useState([]);
   const [sinhVien, setSinhVien] = useState();
   const [searchTerm, setSearchTerm] = useState('');
-  const [editMode, setEditMode] = useState(false); // State to track edit mode
+  const [editMode, setEditMode] = useState(false); //
 
   const {
     handleChange,
@@ -32,15 +32,15 @@ const FormMain = () => {
     },
     onSubmit: (values, { resetForm }) => {
       if (editMode) {
-        // Update existing student
+        // Update sinh viên
         const updatedArrSinhVien = arrSinhVien.map((sv) =>
           sv.mssv === values.mssv ? values : sv
         );
         setArrSinhVien(updatedArrSinhVien);
         setValueLocalStorage('arrSinhVien', updatedArrSinhVien);
-        setEditMode(false); // Exit edit mode after submitting
+        setEditMode(false); 
       } else {
-        // Add new student
+        // Add sinh viên
         const newArrSinhVien = [...arrSinhVien, values];
         setArrSinhVien(newArrSinhVien);
         setValueLocalStorage('arrSinhVien', newArrSinhVien);
@@ -89,7 +89,7 @@ const FormMain = () => {
 
   const handleGetSinhVien = (sinhVien) => {
     setSinhVien(sinhVien);
-    setEditMode(true); // Enter edit mode
+    setEditMode(true);
   };
 
   const filteredSinhVien = arrSinhVien.filter(
@@ -155,7 +155,7 @@ const FormMain = () => {
             <div className="space-x-5">
               <button
                 type="submit"
-                className="py-2 px-5 bg-black text-white rounded-lg"
+                className="py-2 px-5 bg-green-600 text-white rounded-lg"
                 onClick={() => {
                   {editMode ? updatedArrSinhVien() : null}
                 }}
@@ -186,9 +186,9 @@ const FormMain = () => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-      </div>
+      </div> 
 
-      {/* Display filtered students */}
+      {/* Table */}
       <TableSinhVien
         arrSinhVien={filteredSinhVien}
         handleDeleteSinhVien={handleDeleteSinhVien}
