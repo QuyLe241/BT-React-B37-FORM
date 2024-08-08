@@ -20,13 +20,10 @@ const FormMain = () => {
         //  initiaValue sẽ chứa 1 object trong object sẽ có các thuộc tính trùng với
         //      thuộc tính name của Form
         initialValues: {
-            mssv: "VD: 12AB",
+            mssv: "VD:12AB",
             tenSv: "",
             email: "",
             soDienThoai: "",
-            gioiTinh: "",
-            ngaySinh: "",
-            matKhau: "",
         },
         onSubmit: (values, {resetForm}) => {
             //              resetForm là sự kiện sẽ clear đi dữ liệu khi người dùng thực hiện xong
@@ -59,9 +56,7 @@ const FormMain = () => {
             email: yup.string().email("Vui lòng nhập đúng định dạng email").required("Vui lòng nhập dữ liệu"),
             mssv: yup.string().min(3, "Tối thiểu 3 ký tự").max(8, "Nhiều nhất 8 ký tự").required("Vui lòng không bỏ trống"),
             tenSv: yup.string().min(1, "Tối thiểu 1 ký tự").max(20, "Tối thiểu 20 ký tự").required("Vui lòng không bỏ trống"),
-            matKhau: yup.string().matches(/^(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).*$/, "Mật khẩu gồm 1 chữ cái hoa, 1 chữ cái thường, 1 ký tự đặc biệt, nằm trong khoảng 6-12 ký tự")
-            .min(6, "Tối thiểu 6 ký tự").max(12, "Tối thiểu 12 ký tự")
-            .required("Vui lòng không bỏ trống"),
+            soDienThoai: yup.string().matches(/^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/,"Nhập đúng số điện thoại vùng Việt Nam").required("Vui lòng không bỏ trống"),           
         }),
 
     });      
@@ -103,7 +98,7 @@ const FormMain = () => {
         setSinhVien(sinhVien);
     }
   return (
-    <div className='container mx-auto px-3'>
+    <div className='container mx-auto px-8'>
         {/* <label htmlFor="">Nhập Thông Báo</label>
         <input type="text"
         placeholder='Nhập thông báo'
@@ -120,64 +115,24 @@ const FormMain = () => {
             <form action="" onSubmit={handleSubmit}>
                 <div className="grid grid-cols-2 gap-3">
                     
-                    <InputCustom contentLable={"MSSV"} placeHolder={"Nhập mã số nhân viên"} 
+                    <InputCustom contentLable={"MSSV"} placeHolder={"Nhập mã số sinh viên"} 
                     name={"mssv"} value={values.mssv} onChange={handleChange}
                     error={errors.mssv} touched={touched.mssv} onBlur={handleBlur}/>
 
-                    <InputCustom contentLable={"Tên SV"} placeHolder={"Nhập tên nhân viên"} 
+                    <InputCustom contentLable={"Tên SV"} placeHolder={"Nhập tên sinh viên"} 
                     name={"tenSv"} value={values.tenSv} onChange={handleChange} onBlur={handleBlur}
                     error={errors.tenSv} touched={touched.tenSv}/>
 
-                    <InputCustom contentLable={"Email"} placeHolder={"Nhập Email nhân viên"} 
+                    <InputCustom contentLable={"Email"} placeHolder={"Nhập Email sinh viên"} 
                     name={"email"} value={values.email} onChange={handleChange} onBlur={handleBlur}
                     error={errors.email} touched={touched.email}/>
                     {/* {touched.email ? <p className='text-red-600'>{errors.email}</p> : null} */}
 
-                    <InputCustom contentLable={"Số Điện Thoại"} placeHolder={"Nhập sô dth nhân viên"} 
-                    name={"soDienThoai"} value={values.soDienThoai} onChange={handleChange}/>
+                    <InputCustom contentLable={"Số Điện Thoại"} placeHolder={"Nhập sô diện thoai sinh viên"} 
+                    name={"soDienThoai"} value={values.soDienThoai} onChange={handleChange}
+                    error={errors.soDienThoai} touched={touched.soDienThoai} onBlur={handleBlur}/>
 
-                    <div className="">
                     
-                        <label className="block mb-2 text-sm font-medium text-gray-900">Giới Tính</label>
-                        <select onChange={handleChange}  
-                            value={values.gioiTinh}
-                             name='gioiTinh' id="countries" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option selected>Chọn giới tính</option>
-                        <option value="nam">Nam</option>
-                        <option value="nu">Nữ</option>
-                        <option value="unknow">Chưa biết</option>
-                        </select> 
-                    </div>
-
-                    <div className="">
-                    <label className="block mb-2 text-sm font-medium text-gray-900">Ngày sinh</label>
-                    <DatePicker 
-                        onChange={(date, dateString) => {
-                            console.log(dateString);
-                            //      date và dateString là các thuộc tính của API formik
-                            //      setFieldValue cung cấp khả năng cập nhật dữ liệu cho thuộc tính được quản lý bởi formik
-                            //      gọi tói 2 giá trị : tên thuộc tính cần cập nhật và dư liệu cập nhật 
-                            setFieldValue("ngaySinh", dateString);
-                        }}
-                        format="DD-MM-YYYY"
-                        // value={values.ngaySinh}
-                    />
-                    </div>
-
-                    <InputCustom contentLable={"Mật Khẩu"} placeHolder={"Nhập mật khẩu "} 
-                    name={"matKhau"} value={values.matKhau} onChange={handleChange} classWrapper={"col-span-2"}
-                    error={errors.matKhau} touched={touched.matKhau} onBlur={handleBlur}/>
-                    {/* <div className='col-span-2'>
-
-                        <label className="block mb-2 text-sm font-medium text-gray-900 ">
-                            Mật khẩu
-                        </label>
-                        <input  onChange={handleChange}  
-                            value={values.matKhau} 
-                            type="password" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " 
-                            placeholder="Nhập mật khẩu" 
-                            name='matKhau'/>
-                    </div> */}
 
                     <div className="space-x-5">
                         <button type="submit" className='py-2 px-5 bg-black text-white rounded-lg'>Thêm Sinh Viên </button>

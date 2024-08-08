@@ -15,23 +15,14 @@ const TableSinhVien = ({arrSinhVien, handleDeleteSinhVien, handleGetSinhVien}) =
           key: 'age',
         },
         {
+            title: 'Email',
+            key: 'action',
+            dataIndex: 'ngaySinh',
+          },
+        {
           title: 'Số điện thoại',
-          dataIndex: 'soDienThoai',
+          dataIndex: 'email',
           key: 'address',
-        },
-        {
-          title: 'Giới tính',
-          key: 'tags',
-          dataIndex: 'gioiTinh',
-          render: (text) => {
-              let colorTag = text == "nam" ? "geekblue" : text == "nu" ? "volcano" : "loser";
-              return <Tag color={colorTag}>{text.toUpperCase()}</Tag>
-          }
-        },
-        {
-          title: 'Ngày Sinh',
-          key: 'action',
-          dataIndex: 'ngaySinh',
         },
         {
           title: 'Hành động',
